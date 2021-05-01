@@ -2,6 +2,7 @@
 #include <random>
 #include <ctime>
 #include <algorithm>
+#include <fstream>
 
 using namespace std;
 
@@ -16,6 +17,9 @@ int generation = 3000;
 int population_size = 350;
 double crossoverRate = 0.95;
 double mutationRate = 0.2;
+
+//輸出文字檔 
+ofstream newFile;	
 
 double function(double x, double y){
 	return -x * sin(4 * x)-1.1*y*sin(2*y)+1;
@@ -111,7 +115,7 @@ void initialization(){
 }
 
 void evalution(){
-	
+		
 	int decimal_x, decimal_y;
 	double realNum_x, realNum_y;
 	vector<int> tmpVector;
@@ -143,6 +147,7 @@ void evalution(){
 		globalOpt_y = localOpt_y;
 	}
 	cout<<"LocalOpt_x: "<<localOpt_x<<" LocalOpt_y: "<<localOpt_y<<" LocalOptAns: "<<localOptAns<<endl;
+	newFile << localOptAns << " " << globalOptAns << endl;
 }
 
 void selection(){
@@ -290,6 +295,8 @@ int main(){
 	
 	setUp();	
 	initialization();
+	newFile.open("final.txt");
+
 	
 	for(int gen = 0; gen < generation; gen ++){
 		
@@ -321,4 +328,3 @@ int main(){
 	cout<<"=================================================================="<<endl;
 	cout<<"GlobalOpt_x: "<<globalOpt_x<<" GlobalOpt_y: "<<globalOpt_y<<" GlobalOptAns: "<<globalOptAns<<endl;
 }
-
